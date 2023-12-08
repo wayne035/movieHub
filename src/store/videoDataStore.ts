@@ -2,10 +2,16 @@
 import {create} from 'zustand';
 //useVideoData=================================================
 interface VideoDataInfo{
-  medias:{
-    backdrop_path : string,
-    poster_path : string,
+  title: string,
+  medias: {
+    backdrop_path: string,
+    poster_path: string,
+    type: string,
+    movieID?: number,
+    id: number,
     addedToFavorites?: boolean,
+    name?: string,
+    overview?: string,
   }[]
 }
 
