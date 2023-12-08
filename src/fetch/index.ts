@@ -33,8 +33,8 @@ export const getTVorMovieSearchResults = async (type: string, query: string|stri
   return res.data && res.data.results;
 };
 //電視或電影詳細信息==============================================================
-export const getTVorMovieDetailsByID = async (type: string, id: number)=> {
-  const res = await axios.get(`${TMDB_URL}/${type}/${id}?api_key=${TMDB_KEY}&language=en-US&append_to_response=videos`);
+export const getTVorMovieDetailsByID = async (type: string, id: number, lang: string)=> {
+  const res = await axios.get(`${TMDB_URL}/${type}/${id}?api_key=${TMDB_KEY}&language=${lang}&append_to_response=videos`);
   return res.data;
 };
 //相似的電視或電影================================================================

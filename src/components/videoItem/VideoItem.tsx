@@ -30,6 +30,14 @@ const movieImgUrl = process.env.NEXT_PUBLIC_TMDB_MOVIE_IMAGE_URL!;
 export default memo(function VideoItem({ media, title, search=false, similar=false}:mediaData){
   const {setShowVideoPopup} = useVideoPopup();
   const {setCurrentVideoIdAndType} = useCurrentVideoIdAndType();
+  
+  function openVideoPopup(){
+    setShowVideoPopup(true);
+    setCurrentVideoIdAndType({
+      type: media?.type,
+      id: media?.movieID || media?.id,
+    })
+  }
 
   return (
     <motion.div
@@ -43,7 +51,10 @@ export default memo(function VideoItem({ media, title, search=false, similar=fal
       className='text-center'
     >
       <div className='relative cardWrapper h-28 min-w-[180px] cursor-pointer md:h-36 md:min-w-[260px] top-[8px] hover:scale-[1.05] lg:opacity-[.7] hover:opacity-[1] text-[22px] hover:text-[26px] transform transition duration-500'>
-        <h3 className='absolute top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] text-shadow2 font-bold z-10 w-full'>
+        <h3 
+          onClick={openVideoPopup}
+          className='absolute top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] text-shadow2 font-bold z-10 w-full'
+        >
           {media?.name || media?.title}
         </h3>
         <Image
@@ -51,13 +62,7 @@ export default memo(function VideoItem({ media, title, search=false, similar=fal
           alt={`${media?.name || media?.title}`}
           fill
           sizes='100%'
-          onClick={()=>{
-            setShowVideoPopup(true);
-            setCurrentVideoIdAndType({
-              type: media?.type,
-              id: media?.movieID || media?.id,
-            });
-          }}
+          onClick={openVideoPopup}
           className='rounded sm object-cover md:rounded hover:rounded-sm'
         />
         <div className='space-x-3 hidden absolute p-2 bottom-0 buttonWrapper'>
@@ -69,13 +74,7 @@ export default memo(function VideoItem({ media, title, search=false, similar=fal
             similar={similar}
           />
           <button  //playBtn
-            onClick={()=> {
-              setShowVideoPopup(true);
-              setCurrentVideoIdAndType({
-                type: media?.type,
-                id: media?.movieID || media?.id,
-              });
-            }}
+            onClick={openVideoPopup}
             className='cursor-pointer p-2 border flex items-center gap-x-2 rounded-full  text-sm font-semibold transition hover:opacity-90 border-white bg-[#000] opacity-75 '
           >
             <span className='h-7 w-7 text-xl'>📽️</span>

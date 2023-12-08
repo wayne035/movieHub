@@ -52,7 +52,7 @@ export default function Browse() {
             title: '高評價電視節目',
             medias: topratedTvShows,
           },
-        ].map((item) => ({
+        ].map((item)=> ({ //影片增加type & 收藏資訊
           ...item,
           medias: item.medias.map((mediaItem: {id: string}) => ({
             ...mediaItem,
@@ -76,7 +76,7 @@ export default function Browse() {
             title: '高評價電影',
             medias: topratedMovieShows,
           },
-        ].map((item)=> ({
+        ].map((item)=> ({ //影片增加type & 收藏資訊
           ...item,
           medias: item.medias.map((mediaItem: {id: string})=> ({
             ...mediaItem,
