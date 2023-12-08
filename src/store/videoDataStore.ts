@@ -10,6 +10,7 @@ interface VideoDataInfo{
     movieID?: number,
     id: number,
     addedToFavorites?: boolean,
+    title?: string,
     name?: string,
     overview?: string,
   }[]

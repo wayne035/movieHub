@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useVideoData } from '@/store/videoDataStore';
 import Navbar from './navbar/Navbar';
 import Banner from './Banner';
+import VideoItem from '@/components/videoItem/VideoItem';
 import Footer from './Footer';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -52,6 +53,11 @@ export default function VideoLayout() {
                       ).map((mediaItem) => (
                         <SwiperSlide key={crypto.randomUUID()}>
                           <div className='h-[160px]'>
+                            <VideoItem 
+                              key={crypto.randomUUID()}
+                              title={title}
+                              media={mediaItem}
+                            />
                           </div>
                         </SwiperSlide>
                       ))
