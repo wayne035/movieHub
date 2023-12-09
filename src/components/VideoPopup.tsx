@@ -50,7 +50,6 @@ export default function VideoPopup() {
             loginAccount?._id
           )
         ])
-        console.log(VideoDetailsTW)
         //找影片細節type ===  '預告片'的idx 找不到return -1
         const findIndexOfTrailer =
           currentVideoDetails.videos.results && currentVideoDetails.videos.results.length ?

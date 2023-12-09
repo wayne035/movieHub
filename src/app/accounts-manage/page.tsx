@@ -46,7 +46,6 @@ export default function ManageAccounts() {
         uid: session?.user?.uid!,
       })
       setAccounts(data.data);
-      console.log(data)
       if(!data.success) getAllAccounts();
       setPageLoading(false);
     }catch(e){

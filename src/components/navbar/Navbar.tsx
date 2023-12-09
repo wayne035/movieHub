@@ -56,11 +56,11 @@ export default function Navbar() {
   },[]);
 
   return (
-    <div className='relative'>
+    <>
       <header
         className={clsx(
           isScrolled && 'bg-[#141414]',
-          'header hover:bg-[#141414] lg:px-14 transition-all'
+          'header hover:bg-[#141414] lg:px-14 transition-all relative'
         )}
       >
         <div className='flex items-center'>
@@ -128,6 +128,6 @@ export default function Navbar() {
         { showVideoPopup && <VideoPopup/> }
       </Suspense>
       { showAccountPopup && <AccountPopup/> }
-    </div>
+    </>
   );
 }
