@@ -50,48 +50,46 @@ export default memo(function FavoritesBtn({toFavorites, media, title, search, si
   
       if (data && data.success) {
         if(search){
-          // search/[query] page搜尋後的結果
           let updatedSearchResults = [...searchResults]; 
-          //把搜尋結果影片的id 與 當前點擊addFavorites的影片id 做比對回傳相同資料的idx
-          const indexOfCurrentAddedMedia = updatedSearchResults.findIndex(
-            (item:{id:number}) => item.id === id 
+          //找出當前加到favorites的影片在搜尋結果影片的第幾個idx
+          const currentVideoIdx = updatedSearchResults.findIndex(
+            (item)=> item.id === id 
           );
           //更新 search/[query] page搜尋後影片的愛心圖示
-          updatedSearchResults[indexOfCurrentAddedMedia] = {
-            ...updatedSearchResults[indexOfCurrentAddedMedia],
+          updatedSearchResults[currentVideoIdx] = {
+            ...updatedSearchResults[currentVideoIdx],
             addedToFavorites: true,
           };
           setSearchResults(updatedSearchResults);
-  
+
         }else if(similar){
-          let updatedSimilarMedias = [...similarVideo];
-          //把相似電影的影片id 與 當前點擊addFavorites的影片id 做比對回傳相同資料的idx
-          const indexOfCurrentAddedMedia = updatedSimilarMedias.findIndex(
-            (item:{id:number}) => item.id === id
+          let updatedSimilarVideo = [...similarVideo];
+          //找出當前加到favorites的影片在 SimilarVideo裡的第幾個idx
+          const currentVideoIdx = updatedSimilarVideo.findIndex(
+            (item)=> item.id === id
           );
-          //更新 videopopup.jsx 相似影片的愛心圖示
-          updatedSimilarMedias[indexOfCurrentAddedMedia] = {
-            ...updatedSimilarMedias[indexOfCurrentAddedMedia],
+          //更新 videopopup page底下相似影片的愛心圖示
+          updatedSimilarVideo[currentVideoIdx] = {
+            ...updatedSimilarVideo[currentVideoIdx],
             addedToFavorites: true,
           };
-          setSimilarVideo(updatedSimilarMedias);
-  
-        }else{
-          //  VideoLayout 影片
+          setSimilarVideo(updatedSimilarVideo);
+        
+        }else{  //VideoLayout 影片
           let updatedVideoData = [...videoData];
-          //把 VideoLayout 每個 VideoRow 影片title 與 當前點擊addFavorites的影片title 做比對回傳相同資料的idx
-          const findIndexOfRowItem = updatedVideoData.findIndex(
-            (item:any) => item.title === title
+          //找出影片在哪一個title row 底下 返回該title row idx
+          const TitleRowIdx = updatedVideoData.findIndex(
+            (item)=> item.title === title
           );
-          //把 VideoLayout 影片id 與 當前點擊addFavorites的影片id 做比對回傳相同資料的idx
-          let currentMovieArrayFromRowItem =
-              updatedVideoData[findIndexOfRowItem].medias;
-          const findIndexOfCurrentMovie = currentMovieArrayFromRowItem.findIndex(
-            (item:any) => item.id === id
+          //找出當前 title row 所有 item
+          let currentRowAllItem = updatedVideoData[TitleRowIdx].medias;
+          //找出當前加到favorites的影片在 title row 底下的第幾個 idx
+          const currentVideoIdx = currentRowAllItem.findIndex(
+            (item)=> item.id === id
           );
-          //更新 VideoLayout 影片的愛心圖示
-          currentMovieArrayFromRowItem[findIndexOfCurrentMovie] = {
-            ...currentMovieArrayFromRowItem[findIndexOfCurrentMovie],
+          //更新當前影片的愛心圖示
+          currentRowAllItem[currentVideoIdx] = {
+            ...currentRowAllItem[currentVideoIdx],
             addedToFavorites: true,
           };
           setVideoData(updatedVideoData);

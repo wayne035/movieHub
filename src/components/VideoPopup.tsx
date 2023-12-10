@@ -24,7 +24,7 @@ export default function VideoPopup() {
   const {similarVideo,setSimilarVideo} = useSimilarVideo();
   const {currentVideoIdAndType,setCurrentVideoIdAndType} = useCurrentVideoIdAndType();
 
-  useEffect(() => {
+  useEffect(()=> {
     if(currentVideoIdAndType === null) return
     if(currentVideoIdAndType !== null) {
       const getMediaDetails = async ()=> {
@@ -51,12 +51,12 @@ export default function VideoPopup() {
           )
         ])
         //找影片細節type ===  '預告片'的idx 找不到return -1
-        const findIndexOfTrailer =
+        const TrailerIdx =
           currentVideoDetails.videos.results && currentVideoDetails.videos.results.length ?
             currentVideoDetails.videos.results.findIndex((item: {type: string})=> item.type === 'Trailer')
             : -1;
         //找影片細節type === '剪輯片'的idx 找不到return -1
-        const findIndexOfClip =
+        const ClipIdx =
           currentVideoDetails.videos.results && currentVideoDetails.videos.results.length ?
             currentVideoDetails.videos.results.findIndex((item: {type: string})=> item.type === 'Clip')
             : -1;
@@ -75,11 +75,11 @@ export default function VideoPopup() {
         );
         //'預告片'的idx = -1的話換'剪輯片'的idx，如果idx還是-1 return 'T3-t2hjfujE'
         setKey( 
-          findIndexOfTrailer === -1 ?
-          ( findIndexOfClip === -1 ? 
-            'T3-t2hjfujE' : currentVideoDetails.videos?.results[findIndexOfClip]?.key 
+          TrailerIdx === -1 ?
+          ( ClipIdx === -1 ? 
+            'T3-t2hjfujE' : currentVideoDetails.videos?.results[ClipIdx]?.key 
           )
-          : currentVideoDetails.videos?.results[findIndexOfTrailer]?.key  
+          : currentVideoDetails.videos?.results[TrailerIdx]?.key  
         );
       }
 
