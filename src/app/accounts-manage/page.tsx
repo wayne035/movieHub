@@ -40,13 +40,12 @@ export default function ManageAccounts() {
   }
 
   async function getAllAccounts(){
-    setPageLoading(true)
     try{
+      setPageLoading(true)
       const {data} = await axios.post('/api/account/all',{
         uid: session?.user?.uid!,
       })
       setAccounts(data.data);
-      if(!data.success) getAllAccounts();
       setPageLoading(false);
     }catch(e){
       console.log((e as Error).message);
@@ -55,7 +54,8 @@ export default function ManageAccounts() {
 
   async function removeAccount(item: UserItem) {
     try{
-      if(confirm('你確定要刪除？')){
+      let removeAccount = confirm('你確定要刪除？');
+      if(removeAccount){
         const {data} = await axios.delete(`/api/account/${item._id}`);
         if(data.success){
           setShowDeleteIcon(false);

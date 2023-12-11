@@ -1,12 +1,14 @@
 'use client';
 import axios from 'axios';
-import { compare } from 'bcryptjs';
-import { useState,memo,useEffect } from 'react';
+import { useState,memo,useEffect,MouseEvent,KeyboardEvent } from 'react';
 import { useAccountForm } from '@/store/accountsStore';
 import { useSession } from 'next-auth/react';
 
+type Event = 
+  | KeyboardEvent<HTMLInputElement> 
+  | MouseEvent<HTMLButtonElement> ;
+
 interface getAllAccounts{
-  getAllAccounts: () => void,
   method: string,
   editData?: {
     name: string,
@@ -14,16 +16,19 @@ interface getAllAccounts{
     uid: string,
     _id: string,
   }
+  getAllAccounts: () => void,
 }
 
-export default memo(function AccountForm({ getAllAccounts, editData, method }: getAllAccounts) {
+export default memo(function AccountForm({ 
+    getAllAccounts, editData, method
+  }: getAllAccounts ) {
   const {showAccountForm,setShowAccountForm} = useAccountForm();
   const {data: session} = useSession();
   const [formData,setFormData] = useState({name: '', pin: ''});
 
-  async function accountManage(e: any, method: string) {
+  async function accountManage(e: Event, method: string) {
     try{
-      if (e.key === 'Enter' || e.type === 'click'){
+      if ((e as KeyboardEvent).key === 'Enter' || e.type === 'click'){
 
         let fetchData = {success: null!, message: null!};
 
