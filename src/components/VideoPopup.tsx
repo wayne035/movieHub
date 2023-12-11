@@ -61,7 +61,6 @@ export default function VideoPopup() {
             currentVideoDetails.videos.results.findIndex((item: {type: string})=> item.type === 'Clip')
             : -1;
         //儲存當前影片相關中文資訊
-        console.log(similarVideo)
         setCurrentVidoInfo(VideoDetailsTW);
         //對相似影片增加type & 收藏資訊
         setSimilarVideo(
@@ -136,7 +135,7 @@ export default function VideoPopup() {
             <p className='mt-4 mb-8 md:text-[18px]'>
               {currentVidoInfo?.overview || '😔 暫無影片概述 ...'}
             </p>
-            <h2 className='mt-2 mb-6 md:text-[20px]'>相關影片 ： </h2>
+            <h2 className='mt-2 mb-6 md:text-[20px]'>🎬 相關影片 ： </h2>
             <div className='grid grid-cols-5 gap-3 items-center scrollbar-hide md:p-2 md:text-xl'>
               {
                 similarVideo && similarVideo.length
