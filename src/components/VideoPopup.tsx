@@ -61,6 +61,7 @@ export default function VideoPopup() {
             currentVideoDetails.videos.results.findIndex((item: {type: string})=> item.type === 'Clip')
             : -1;
         //儲存當前影片相關中文資訊
+        console.log(similarVideo)
         setCurrentVidoInfo(VideoDetailsTW);
         //對相似影片增加type & 收藏資訊
         setSimilarVideo(

@@ -4,9 +4,9 @@ import {create} from 'zustand';
 interface Medias{
   backdrop_path: string,
   poster_path: string,
-  type: string,
-  movieID?: number,
   id: number,
+  type?: string,
+  movieID?: number,
   addedToFavorites?: boolean,
   title?: string,
   name?: string,
@@ -47,11 +47,10 @@ export const useCurrentVideoIdAndType = create<VideoIdAndType>()((set)=>({
   }))
 }))
 //useSimilarVideo=================================================
-interface SimilarInfo extends Medias{}
 
 interface SimilarVideo{
-  similarVideo: SimilarInfo[],
-  setSimilarVideo: (data: SimilarInfo[]) => void,
+  similarVideo: Medias[],
+  setSimilarVideo: (data: Medias[]) => void,
 }
 
 export const useSimilarVideo = create<SimilarVideo>()((set)=>({

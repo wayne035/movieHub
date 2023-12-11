@@ -9,9 +9,9 @@ import FavoritesBtn from './FavoritesBtn';
 interface Media{
   backdrop_path: string,
   poster_path: string,
-  type: string,
-  movieID?: number,
   id: number,
+  type?: string,
+  movieID?: number,
   addedToFavorites?: boolean,
   title?: string,
   name?: string,
