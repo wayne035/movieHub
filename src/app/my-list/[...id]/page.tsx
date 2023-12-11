@@ -37,7 +37,8 @@ export default function MyList() {
       );
       if(data){
         setFavorites(data.map((item: FavoritesInfo)=> ({
-          ...item, addedToFavorites : true
+          ...item, 
+          addedToFavorites : true
         })));
       }
     }

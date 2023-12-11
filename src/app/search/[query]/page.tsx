@@ -27,30 +27,31 @@ export default function Search() {
   useEffect(() => {
     if(!loginAccount) router.push('/accounts-manage');
     async function getSearchResults() {
-      const tvShows = await getTVorMovieSearchResults('tv', params.query);
-      const movies = await getTVorMovieSearchResults('movie', params.query);
+      setPageLoading(true);
+      const [ tv, movies ] = await Promise.all([
+        getTVorMovieSearchResults('tv', params.query),
+        getTVorMovieSearchResults('movie', params.query)
+      ]);
+
       const allFavorites = await getAllfavorites(
         session?.user?.uid!,
         loginAccount?._id!
       );
-      setSearchResults([ //把搜尋後tv movie的影片放到setSearchResults
-        ...tvShows
-          .filter(  //找圖片不為空白的影片
+      //把搜尋tv movie結果的影片放到setSearchResults 
+      setSearchResults([ 
+        ...tv.filter(  //找圖片不為空白的影片
             (item: ImgItem)=> item.backdrop_path !== null && item.poster_path !== null
-          )
-          .map((tvShowItem: {id: number})=> ({
+          ).map((tvShowItem: {id: number})=> ({
             ...tvShowItem,
-            type: 'tv',
-            addedToFavorites: //判斷某些影片是否加入收藏夾
+            type: 'tv',          //影片增加type & 收藏資訊
+            addedToFavorites: 
               allFavorites && allFavorites.length  
                 ? allFavorites.map((fav: {movieID: number})=> fav.movieID).indexOf(tvShowItem.id) > -1 
                 : false,
           })),
-        ...movies
-          .filter(
+        ...movies.filter(
             (item: ImgItem)=> item.backdrop_path !== null && item.poster_path !== null
-          )
-          .map((movieItem: {id: number})=> ({
+          ).map((movieItem: {id: number})=> ({
             ...movieItem,
             type: 'movie',
             addedToFavorites:
@@ -59,6 +60,7 @@ export default function Search() {
               : false,
           })),
       ]);
+
       setPageLoading(false);
     }
     getSearchResults();
@@ -72,17 +74,18 @@ export default function Search() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
     >
-      <Navbar />
+      <Navbar/>
       <div className='mt-[100px] space-y-0.5 md:space-y-2 px-4 pb-14'>
         <h2 className='cursor-pointer text-sm font-semibold text-[#e5e5e5] transition-colors duration-200 hover:text-white md:text-2xl'>
           顯示搜尋 {decodeURI(params.query as string)} 的結果
         </h2>
         <div className='grid grid-cols-5 gap-3 items-center scrollbar-hide md:p-2'>
           {searchResults && searchResults.length
-            ? searchResults.map((searchItem: any) => (
-                <VideoItem key={searchItem.id} media={searchItem} search={true}/>
-              ))
-            : null}
+            ? searchResults.map((searchItem)=> (
+              <VideoItem key={searchItem.id} media={searchItem} search={true}/>
+            ))
+            : null
+          }
         </div>
       </div>
     </motion.div>

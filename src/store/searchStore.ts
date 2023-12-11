@@ -1,14 +1,21 @@
 'use client'
 import {create} from 'zustand';
 
-interface SearchInfo{
+interface Media{
+  backdrop_path: string,
+  poster_path: string,
+  type: string,
+  movieID?: number,
   id: number,
-  addedToFavorites?: boolean, 
+  addedToFavorites?: boolean,
+  title?: string,
+  name?: string,
+  overview?: string,
 }
 
 interface SearchData{
-  searchResults: SearchInfo[],
-  setSearchResults: (results: any)=> void,
+  searchResults: Media[],
+  setSearchResults: (results: Media[])=> void,
 }
 
 export const useSearch = create<SearchData>()((set)=>({
