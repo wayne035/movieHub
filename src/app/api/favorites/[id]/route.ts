@@ -13,14 +13,16 @@ export async function DELETE(req: Request, { params }: VideoID) {
       await connectDB();
       const { id } = params;
       if(!id){
-        return NextResponse.json({success: false, message: '需要收藏影片ID'});
+        return NextResponse.json({success: false, message: '需要影片ID'});
       }
+
       const deletedFavoriteItem = await Favorites.findByIdAndDelete(id);
       if(deletedFavoriteItem){
         return NextResponse.json({success: true, message: '已從您收藏的影片中刪除'});
       }else{
         return NextResponse.json({success: false, message: '糟糕!出了點問題!'});
       }
+      
     }catch(e){
       return NextResponse.json({success: false, message: (e as Error).message});
     }

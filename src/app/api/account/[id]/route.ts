@@ -4,7 +4,9 @@ import { hash } from 'bcryptjs';
 import { NextResponse } from 'next/server';
 
 interface userID{
-  params: {id: string},
+  params: {
+    id: string
+  },
 }
 //編輯用戶==================================================================
 export async function PATCH(req: Request, {params}: userID){
@@ -12,11 +14,14 @@ export async function PATCH(req: Request, {params}: userID){
     await connectDB();
     const {name, pin, uid} = await req.json();
     const {id} = params;
+
     if(pin.length !== 4) return NextResponse.json({message: 'PIN碼需要4碼'});
+
     const accountRepeat = await Account.find({ uid, name });
     if(accountRepeat && accountRepeat.length > 0){
-      return NextResponse.json({success: false,message: '請嘗試使用不同的名稱'});
+      return NextResponse.json({success: false, message: '請嘗試使用不同的名稱'});
     }
+
     const hashPin = await hash(pin, 10);
     const updateAccount = await Account.updateOne({_id: id},{$set: {name, pin: hashPin}})
     if(updateAccount){
@@ -24,6 +29,7 @@ export async function PATCH(req: Request, {params}: userID){
     }else{
       return NextResponse.json({success: false, message: '糟糕!出了點問題!'});
     }
+
   }catch(e){
     console.log((e as Error).message);
   }
