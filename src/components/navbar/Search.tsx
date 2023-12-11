@@ -1,22 +1,29 @@
 'use client';
-import React from 'react';
+import { KeyboardEvent,MouseEvent } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { usePageLoading } from '@/store/pageLoadingStore';
 
+type Event = 
+  | KeyboardEvent<HTMLInputElement> 
+  | MouseEvent<HTMLButtonElement> ;
+
 interface SearchData{
   pathName: string,
-  router: any,
   searchQuery: string,
   setShowSearchBar: React.Dispatch<React.SetStateAction<boolean>>,
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>,
+  router: {
+    replace: (path: string)=> void,
+    push: (path: string)=> void
+  }
 }
 
 export default function Search({pathName, router, searchQuery, setSearchQuery, setShowSearchBar}: SearchData) {
   const {setPageLoading} = usePageLoading();
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: Event) {
     if(searchQuery === '') return ;
-    if (e.key === 'Enter' || e.type === 'click'){
+    if ((e as KeyboardEvent).key === 'Enter' || e.type === 'click'){
       setPageLoading(true);
       if(pathName.includes('/search')){
         router.replace(`/search/${searchQuery}`);
