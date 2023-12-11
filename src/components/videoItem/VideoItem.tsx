@@ -1,24 +1,13 @@
 'use client'
 import { memo } from 'react';
+import { Media } from '@/interface';
 import { motion } from 'framer-motion';
 import { useCurrentVideoIdAndType } from '@/store/videoDataStore';
 import { useVideoPopup } from '@/store/videoPopupStore';
 import Image from 'next/image';
 import FavoritesBtn from './FavoritesBtn';
 
-interface Media{
-  backdrop_path: string,
-  poster_path: string,
-  id: number,
-  type?: string,
-  movieID?: number,
-  addedToFavorites?: boolean,
-  title?: string,
-  name?: string,
-  overview?: string,
-}
-
-interface mediaData{
+interface VideoItems{
   media: Media,
   title?: string,
   search?: boolean,
@@ -27,14 +16,16 @@ interface mediaData{
 
 const movieImgUrl = process.env.NEXT_PUBLIC_TMDB_MOVIE_IMAGE_URL!;
 
-export default memo(function VideoItem({ media, title, search=false, similar=false}:mediaData){
+export default memo(function VideoItem({ 
+  media, title, search=false, similar=false
+}: VideoItems) {
   const {setShowVideoPopup} = useVideoPopup();
   const {setCurrentVideoIdAndType} = useCurrentVideoIdAndType();
   
   function openVideoPopup(){
     setShowVideoPopup(true);
     setCurrentVideoIdAndType({
-      type: media?.type,
+      type: media?.type!,
       id: media?.movieID || media?.id,
     })
   }

@@ -7,23 +7,17 @@ import { CiEdit } from "react-icons/ci";
 import { useAccounts,useAccountForm } from '@/store/accountsStore';
 import { usePinContainer } from '@/store/pinContainerStore';
 import { usePageLoading } from '@/store/pageLoadingStore';
+import { Account } from '@/interface';
 import Loading from '../loading';
 import AccountForm from './AccountForm';
 import PinForm from './PinForm';
-
-interface UserItem{
-  name: string,
-  pin: string,
-  uid: string,
-  _id: string,
-}
 
 export default function ManageAccounts() {
   const {data: session} = useSession();
   const [showDeleteIcon, setShowDeleteIcon] = useState(false);
   const [showEditIcon, setShowEditIcon] = useState(false);
   const [method,setMethod] = useState('');
-  const [editData,setEditData] = useState({} as UserItem);
+  const [editData,setEditData] = useState({} as Account);
   const {pageLoading,setPageLoading} = usePageLoading();
   const {setShowPinContainer} = usePinContainer();
   const {accounts,setAccounts} = useAccounts();
@@ -52,7 +46,7 @@ export default function ManageAccounts() {
     }
   }
 
-  async function removeAccount(item: UserItem) {
+  async function removeAccount(item: Account) {
     try{
       let removeAccount = confirm('你確定要刪除？');
       if(removeAccount){
@@ -82,7 +76,7 @@ export default function ManageAccounts() {
           選擇觀看用戶
         </p>
         <ul className='flex my-[25px] flex-wrap justify-center'>
-          {accounts?.map((item: UserItem)=> (
+          {accounts?.map((item: Account)=> (
               <li
                 className='max-w-[200px] w-[155px] cursor-pointer flex flex-col items-center gap-3 min-w-[200px]'
                 key={item._id}
@@ -134,7 +128,7 @@ export default function ManageAccounts() {
                 onClick={()=> {
                   setShowAccountForm();
                   setMethod('create');
-                  setEditData({} as UserItem);
+                  setEditData({} as Account);
                   setShowDeleteIcon(false);
                   setShowEditIcon(false);
                 }}

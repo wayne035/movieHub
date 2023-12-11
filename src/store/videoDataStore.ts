@@ -1,21 +1,10 @@
 'use client'
 import {create} from 'zustand';
+import { Media } from '@/interface';
 //useVideoData=================================================
-interface Medias{
-  backdrop_path: string,
-  poster_path: string,
-  id: number,
-  type?: string,
-  movieID?: number,
-  addedToFavorites?: boolean,
-  title?: string,
-  name?: string,
-  overview?: string,
-}
-
 interface VideoDataInfo{
   title: string,
-  medias: Medias[]
+  medias: Media[]
 }
 
 interface VideoData{
@@ -49,8 +38,8 @@ export const useCurrentVideoIdAndType = create<VideoIdAndType>()((set)=>({
 //useSimilarVideo=================================================
 
 interface SimilarVideo{
-  similarVideo: Medias[],
-  setSimilarVideo: (data: Medias[]) => void,
+  similarVideo: Media[],
+  setSimilarVideo: (data: Media[]) => void,
 }
 
 export const useSimilarVideo = create<SimilarVideo>()((set)=>({

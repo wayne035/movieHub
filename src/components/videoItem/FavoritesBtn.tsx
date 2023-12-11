@@ -1,29 +1,18 @@
 'use client'
 import axios from 'axios';
+import { Media } from '@/interface';
 import {memo} from 'react';
 import { useVideoData,useSimilarVideo } from '@/store/videoDataStore';
 import { useLoginAccount } from '@/store/accountsStore';
 import { useSession } from 'next-auth/react';
 import { useSearch } from '@/store/searchStore';
 
-interface Media{
-  backdrop_path: string,
-  poster_path: string,
-  type: string,
-  movieID?: number,
-  id: number,
-  addedToFavorites?: boolean,
-  title?: string,
-  name?: string,
-  overview?: string,
-}
-
 interface mediaData{
-  toFavorites?: boolean,
   media: Media,
   title?: string,
   search?: boolean,
   similar?: boolean,
+  toFavorites?: boolean,
 }
 
 export default memo(function FavoritesBtn({toFavorites, media, title, search, similar}: mediaData) {

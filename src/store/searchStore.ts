@@ -1,17 +1,6 @@
 'use client'
 import {create} from 'zustand';
-
-interface Media{
-  backdrop_path: string,
-  poster_path: string,
-  type: string,
-  movieID?: number,
-  id: number,
-  addedToFavorites?: boolean,
-  title?: string,
-  name?: string,
-  overview?: string,
-}
+import { Media } from '@/interface';
 
 interface SearchData{
   searchResults: Media[],

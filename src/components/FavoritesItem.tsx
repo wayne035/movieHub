@@ -9,31 +9,21 @@ import { useLoginAccount } from '@/store/accountsStore';
 import { useFavorites } from '@/store/favoritesStore';
 import { useCurrentVideoIdAndType } from '@/store/videoDataStore';
 import { useVideoPopup } from '@/store/videoPopupStore';
+import { FavoritesInfo } from '@/interface';
 
-interface FavInfo{
-  favItem:{
-    backdrop_path: string,
-    poster_path: string,
-    movieID: number,
-    _id: string,
-    type: string,
-    uid: string,
-    accountID: string,
-    name?: string,
-    title?: string,
-    overview?: string,
-  }
+interface FavInItem{
+  favItem: FavoritesInfo
 }
 
 const movieImgUrl = process.env.NEXT_PUBLIC_TMDB_MOVIE_IMAGE_URL!;
 
-export default memo(function FavoritesItem({favItem}: FavInfo) {
+export default memo(function FavoritesItem({favItem}: FavInItem) {
   const {data: session} = useSession();
   const {loginAccount} = useLoginAccount();
   const {setFavorites} = useFavorites();
   const {setShowVideoPopup} = useVideoPopup();
   const {setCurrentVideoIdAndType} = useCurrentVideoIdAndType();
-  
+  console.log(favItem)
   function openVideoPopup(){
     setShowVideoPopup(true);
     setCurrentVideoIdAndType({

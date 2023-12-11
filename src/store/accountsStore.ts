@@ -1,14 +1,8 @@
 'use client'
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { Account } from '@/interface';
 //useLoginAccount=====================================
-interface Account{
-  name: string,
-  pin: string,
-  uid: string,
-  _id: string,
-}
-
 interface LoginAccount{
   loginAccount: Account,
   setLoginAccount: (data: Account)=> void,

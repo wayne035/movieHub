@@ -1,13 +1,7 @@
 'use client'
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-interface Account{
-  name: string,
-  pin: string,
-  uid: string,
-  _id: string,
-}[]
+import { Account } from '@/interface';
 
 interface PinContainer{
   showPinContainer: { show: boolean, account: Account}

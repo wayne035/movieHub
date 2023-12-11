@@ -6,21 +6,9 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useLoginAccount } from '@/store/accountsStore';
 import { useFavorites } from '@/store/favoritesStore';
+import { FavoritesInfo } from '@/interface';
 import Navbar from '@/components/navbar/Navbar';
 import FavoritesItem from '@/components/FavoritesItem';
-
-interface FavoritesInfo{
-  backdrop_path: string,
-  poster_path: string,
-  movieID: number,
-  _id: string,
-  type: string,
-  uid: string,
-  accountID: string,
-  name?: string,
-  title?: string,
-  overview?: string,
-}
 
 export default function MyList() {
   const {data: session} = useSession();
